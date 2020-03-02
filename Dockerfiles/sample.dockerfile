@@ -10,7 +10,4 @@ RUN yum -y update && \
   mesa-libGL-devel \
   pax \
   wget && \
-  yum clean all && \
-  wget http://runtimezip.esri.com:8080/userContent/apps-archive/archive/local_system_setup/runtimecore/linux/9.0.0_clang_libc++_x64.tar.gz && \
-  tar xzPf 9.0.0_clang_libc++_x64.tar.gz && \
-  rm 9.0.0_clang_libc++_x64.tar.gz
+  yum clean all
