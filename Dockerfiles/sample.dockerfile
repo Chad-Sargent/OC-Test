@@ -8,6 +8,5 @@ RUN yum -y update && \
   fontconfig-devel \
   freetype-devel \
   mesa-libGL-devel \
-  pax \
-  wget && \
+  pax
   yum clean all
