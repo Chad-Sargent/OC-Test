@@ -47,6 +47,7 @@ int main(){
 void setup(void){
 	// put your setup code here, to run once:
 	printf("%s \n", "Hello World");
+        fflush(stdout);
 }
 
 void loop(void){
@@ -54,4 +55,5 @@ void loop(void){
 	// remove exit 0
         usleep(5000000);
 	printf("%s \n", "Hello World in loop");
+        fflush(stdout);
 }
