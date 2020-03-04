@@ -7,7 +7,7 @@ pipeline {
              script {
                 openshift.withCluster() {
                    openshift.withProject() {
-                      openshift.selector("all", [ template : "test-app" ]).delete() 
+                      openshift.selector("all", "test-app").delete() 
                       if (openshift.selector("secrets", "test-app").exists()) { 
                          openshift.selector("secrets", "test-app").delete()
                       }   
