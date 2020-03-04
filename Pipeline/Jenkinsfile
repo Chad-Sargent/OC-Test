@@ -6,9 +6,9 @@ pipeline {
              echo "Hello! Pipeline is running!"
              script {
                 openshift.withCluster() {
-                   openshift.withProject("test-app") {
-                       openshift.selector("all", [ "test-app"  : "jenkins-ephemeral" ]).delete() 
-                     }   
+                   openshift.withProject("test-app") { 
+                     	openshift.deleteResourceByLabel("app=test-app")
+			}   
                     }
                  }  
              }
