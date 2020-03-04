@@ -7,7 +7,7 @@ pipeline {
              script {
                 openshift.withCluster() {
                    openshift.withProject() {
-                       openshift.selector("all", [ "test-app"  : "test-app" ]).delete() 
+                       openshift.selector("all", [ "app=test-app"  : "test-app" ]).delete() 
                      }   
                     }
                  }  
