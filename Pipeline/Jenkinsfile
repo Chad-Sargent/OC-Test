@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-       stage('Delete all resources") {
+       stage("Delete all resources") {
           steps {
              script {
                 openshift.withCluster() {
