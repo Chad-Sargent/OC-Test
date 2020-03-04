@@ -1,9 +1,9 @@
 pipeline {
     agent any
     stages {
-       stage("Delete all resources") {
+       stage("Delete all test-app resources") {
           steps {
-             echo "Hello! Pipeline is running!"
+             echo "Hello! Pipeline is running! Resources are being deleted!"
              script {
                 openshift.withCluster() {
                    openshift.withProject("test-app") { 
@@ -13,5 +13,17 @@ pipeline {
                  }  
              }
           }
+       stage("Create test-app") {
+         steps {
+           echo "Creating resources!"
+           script {
+             openshift.withCluster() {
+                openshift.withProject("test-app") {
+                  openshift.newApp("s2i-4-toolchain~https://github.com/ritesh97-rh/OC-Test", "--context-dir=s2i/devtoolset/4-toolchain/test/test-app", "--name=test-app") 
+                }
+            } 
+           }
+         }
        }
-    }
+     }
+  }
