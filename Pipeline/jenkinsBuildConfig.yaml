@@ -1,15 +1,9 @@
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  creationTimestamp: null
   name: esri-example-pipeline
-  selfLink: /apis/build.openshift.io/v1/namespaces/test-app-pipeline/buildconfigs/esri-example-pipeline
 spec:
-  failedBuildsHistoryLimit: 5
-  nodeSelector: {}
-  output: {}
-  postCommit: {}
-  resources: {}
+  successfulBuildsHistoryLimit: 5
   runPolicy: Serial
   source:
     git:
@@ -20,8 +14,6 @@ spec:
     jenkinsPipelineStrategy:
       jenkinsfilePath: Pipeline/Jenkinsfile
     type: JenkinsPipeline
-  successfulBuildsHistoryLimit: 5
-  triggers:
+    triggers:
   - type: ConfigChange
-status:
-  lastVersion: 19
+
