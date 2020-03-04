@@ -2,8 +2,18 @@
 OpenShift Testing
 
 Pipeline setup steps
-
-1) Set up Jenkins project  
+    
+1) Set up project to deploy C++ application using s2i  
+##create project named test-app  
+oc new project test-app  
+##create image binary and resources under s2i-4-toolchain label  
+oc new-app {REPO_GITHUB_ADDR} --context-dir s2i/devtoolset/4-toolchain --name s2i-4-toolchain   
+##create and deploy C++ application resources under label test-app from image binary created in previous step  
+oc new-app s2i-4-toolchain~{REPO_GITHUB_ADDR} --context-dir s2i/devtoolset/4-toolchain/test/test-app --name test-app   
+##add the edit role to the service account associated with the Jenkins deployment for the test-app project  
+oc policy add-role-to-user edit system:serviceaccount:test-app-pipeline:jenkins -n test-app  
+  
+2) Set up Jenkins project  
 ##create new project named test-app-pipeline  
 oc new-project test-app-pipeline   
 ##set up an app from jenkins-ephemeral template  
@@ -14,18 +24,8 @@ oc create -f Pipeline/jenkinsBuildConfig.yaml
 ##get route for Jenkins web console  
 oc get route   
 ##go to the route url to access Jenkins Web Console; on first log in, give Jenkins requested permissions  
-  
-2) Set up project to deploy C++ application using s2i  
-##create project named test-app  
-oc new project test-app  
-##create image binary and resources under s2i-4-toolchain label  
-oc new-app {REPO_GITHUB_ADDR} --context-dir s2i/devtoolset/4-toolchain --name s2i-4-toolchain   
-##create and deploy C++ application resources under label test-app from image binary created in previous step  
-oc new-app s2i-4-toolchain~{REPO_GITHUB_ADDR} --context-dir s2i/devtoolset/4-toolchain/test/test-app --name test-app   
-##add the edit role to the service account associated with the Jenkins deployment for the test-app project  
-oc policy add-role-to-user edit system:serviceaccount:test-app-pipeline:jenkins -n test-app  
-  
-3) Set up sync and run pipeline  
+    
+3) Set up Jenkins sync and run pipeline    
 ##configure the Jenkins Sync Plugin inside Jenkins Web Console:   
 Click Manage Jenkins (left menu) -> Click Configure System -> go to Openshift Jenkins Sync section -> Add ' test-app' to the namespace. Namespace field should read 'test-app-pipeline test-app'.  
 ##kick off pipeline in Jenkins  
