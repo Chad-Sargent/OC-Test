@@ -3,6 +3,7 @@ pipeline {
     stages {
        stage("Delete all resources") {
           steps {
+             echo "Hello! Pipeline is running!"
              script {
                 openshift.withCluster() {
                    openshift.withProject() {
