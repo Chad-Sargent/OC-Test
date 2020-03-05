@@ -1,0 +1,31 @@
+def APP_NAME="test-app"
+
+pipeline {
+    agent any
+    stages {
+       stage("Delete all test-app resources") {
+          steps {
+             echo "Hello! Pipeline is running! Resources are being deleted."
+             script {
+                openshift.withCluster() {
+                   openshift.withProject("${APP_NAME}") { 
+		      openshift.selector("all", [ "app" : "${APP_NAME}" ]).delete() 
+     			}   
+                    }
+                 }  
+             }
+          }
+       stage("Create test-app") {
+         steps {
+           echo "Creating resources!"
+           script {
+             openshift.withCluster() {
+                openshift.withProject("${APP_NAME}") {
+                  openshift.newApp("s2i-4-toolchain~{REPO_GITHUB_ADDR}", "--context-dir=s2i/devtoolset/4-toolchain/test/test-app", "--name=${APP_NAME}") 
+                }
+             } 
+           }
+         }
+       }
+     }
+  }
