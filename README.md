@@ -1,5 +1,5 @@
-# Pipeline Setup Steps
-  
+# Pipeline Setup Steps  
+
 &nbsp;
 #### 1.    Set up project to deploy C++ application using s2i
 
@@ -26,7 +26,8 @@
     
 * ##### Set up an app from jenkins-ephemeral template
 
-    `oc new-app jenkins-ephemeral`
+    `oc new-app jenkins-ephemeral` &nbsp;
+    
     To view available templates, run `oc new-app --search jenkins`
     
 * ##### Apply the build config with name esri-example-pipeline to jenkins app (NOTE: replace {REPO_GITHUB_ADDR} with github repository)
@@ -58,7 +59,8 @@
 
 * ##### Do the following as Jenkins build is running, before it terminates
 
-    `oc project test-app` (switch to test-app project)
+    `oc project test-app` (switch to test-app project) &nbsp;
+    
     `watch oc get all` (watch mode to view changes in resource status)
     
 * ##### Will see source code get cloned from Github, test-app resources terminating (first stage in pipeline) and then getting recreated from the existing s2i-4-toolchain imagestream (second pipeline stage)
