@@ -1,0 +1,19 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: esri-example-pipeline
+spec:
+  successfulBuildsHistoryLimit: 5
+  runPolicy: Serial
+  source:
+    git:
+      ref: master
+      uri: https://github.com/ritesh97-rh/OC-Test
+    type: Git
+  strategy:
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Pipeline/Jenkinsfile
+    type: JenkinsPipeline
+    triggers:
+  - type: ConfigChange
+
